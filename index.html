@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChengHao的个人网站</title>
+  <style>
+    /* 全局重置 & 字体 */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #c6e9fa;  /* 柔和淡蓝色 */
+      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      line-height: 1.5;
+      color: #1e3a5f;        /* 深蓝灰，保证对比度 */
+    }
+
+    /* 主卡片 —— 半透明白色毛玻璃效果，所有内容居中 */
+    .card {
+      max-width: 750px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.6);  /* 半透明叠加淡蓝背景 */
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border-radius: 3.5rem 1.5rem 3.5rem 1.5rem; /* 柔和的不对称圆角 */
+      box-shadow: 0 20px 40px rgba(0, 30, 50, 0.15), 0 8px 20px rgba(0, 20, 40, 0.1);
+      padding: 3rem 2.5rem;
+      text-align: center;            /* 内部文字与inline元素居中 */
+      transition: all 0.2s ease;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    /* 标题区 */
+    h1 {
+      font-size: 3rem;
+      font-weight: 600;
+      letter-spacing: -0.5px;
+      margin-bottom: 0.75rem;
+      color: #0b2b44;
+      text-shadow: 2px 2px 8px rgba(255, 255, 255, 0.8);
+      word-break: break-word;
+    }
+
+    /* 简短介绍 */
+    .intro {
+      font-size: 1.3rem;
+      margin: 1rem 0 1.8rem 0;
+      color: #1f4a6e;
+      font-weight: 350;
+      border-left: 3px solid #8fc9e6;
+      border-right: 3px solid #8fc9e6;
+      display: inline-block;        /* 让边框只包住文字 */
+      padding: 0.4rem 1.2rem;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 60px;
+      backdrop-filter: blur(2px);
+    }
+
+    /* 邮箱行 */
+    .email-row {
+      font-size: 1.3rem;
+      margin: 1.8rem 0 2rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.5rem 0.8rem;
+    }
+
+    .email-label {
+      background: rgba(255, 255, 255, 0.5);
+      padding: 0.3rem 0.8rem;
+      border-radius: 40px;
+      font-weight: 400;
+      color: #0a374f;
+    }
+
+    /* 统一链接样式 (用于邮箱链接 和 下方按钮) */
+    a {
+      display: inline-block;
+      padding: 0.6rem 1.8rem;
+      background: white;
+      border-radius: 60px;
+      color: #0369a1;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.1rem;
+      box-shadow: 0 6px 12px rgba(0, 30, 50, 0.08);
+      transition: all 0.2s ease;
+      border: 1px solid rgba(200, 225, 245, 0.7);
+      backdrop-filter: blur(2px);
+    }
+
+    a:hover {
+      background: #f0faff;
+      transform: translateY(-4px);
+      box-shadow: 0 15px 25px rgba(0, 70, 120, 0.15);
+      border-color: #99ccff;
+      color: #024d70;
+    }
+
+    a:active {
+      transform: translateY(0);
+      box-shadow: 0 4px 8px rgba(0, 40, 70, 0.2);
+    }
+
+    /* 邮箱里的特殊微调 —— 让图标和链接浑然一体 */
+    .email-row a {
+      padding: 0.6rem 2rem;
+      background: #eef7ff;
+      border: 1px solid #b9d9f0;
+    }
+
+    /* 超链接组 (三个按钮) */
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.2rem;
+      margin: 2.2rem 0 2rem 0;
+    }
+
+    .links a {
+      min-width: 120px;
+      background: rgba(255, 255, 255, 0.9);
+      font-weight: 550;
+      box-shadow: 0 8px 16px rgba(42, 106, 146, 0.1);
+    }
+
+    /* 动态日期 —— 小巧精致 */
+    .date-info {
+      margin-top: 2.5rem;
+      font-size: 1rem;
+      color: #2c5777;
+      background: rgba(255, 255, 255, 0.5);
+      padding: 0.5rem 1.2rem;
+      border-radius: 60px;
+      display: inline-block;   /* 让背景随文字 */
+      backdrop-filter: blur(2px);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      letter-spacing: 0.3px;
+    }
+
+    /* 小屏优化 */
+    @media (max-width: 500px) {
+      .card {
+        padding: 2rem 1.5rem;
+      }
+      h1 {
+        font-size: 2.4rem;
+      }
+      .intro {
+        font-size: 1.1rem;
+      }
+      .email-row {
+        font-size: 1.1rem;
+        flex-direction: column;
+        gap: 0.3rem;
+      }
+      a {
+        padding: 0.5rem 1.2rem;
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <!-- 大标题欢迎语 (使用醒目emoji) -->
+    <h1>✨ 嗨，欢迎！✨</h1>
+
+    <!-- 小字简短介绍 -->
+    <div class="intro">
+       我是ChengHao，这里只一个普通的小站
+    </div>
+
+    <!-- 个人联系方式 -->
+    <div class="email-row">
+      <span class="email-label">📫 邮箱</span>
+      <!-- 直接 mailto 链接，点击即调用默认邮件客户端 -->
+      <a href="mailto:3918869229@qq.com">3918869229@qq.com</a>
+    </div>
+
+    <!-- 几个超链接 (社交/作品集) 新标签页打开 -->
+    <div class="links">
+      <a href="https://m.bilibili.com/space/1667931963" target="_blank" rel="noopener noreferrer">我的B站个人空间</a>
+      <a href="https://yhfx.jwznb.com/share?key=cIN4NNoWNRG6&ts=1772326916" target="_blank" rel="noopener noreferrer">加入“猫猫园”群聊</a>
+      <a href="https://sanlian.qzz.io/game/draw/" target="_blank" rel="noopener noreferrer">画画！</a>
+    </div>
+
+    <!-- 由 JavaScript 动态生成的日期区域 (也完全居中) -->
+    <p class="date-info" id="currentDate">✨ 加载中 ✨</p>
+  </div>
+
+  <!-- 简单的 JavaScript —— 更新日期，同时证明 js 存在 -->
+  <script>
+    (function() {
+      // 获取用于显示日期的元素
+      const dateElement = document.getElementById('currentDate');
+      if (dateElement) {
+        // 创建一个新的 Date 对象
+        const today = new Date();
+        
+        // 格式化输出: 2025年3月21日 星期五  (中文友好格式)
+        const options = { 
+          year: 'numeric', 
+          month: 'long', 
+          day: 'numeric', 
+          weekday: 'short',
+          timeZone: 'Asia/Shanghai'  // 可以根据需要调整时区
+        };
+        
+        // 使用中文地区格式
+        let formattedDate = today.toLocaleDateString('zh-CN', options);
+        
+        // 自定义增加一点小表情 (也可以保持简洁)
+        dateElement.innerText = '📅 ' + formattedDate + ' · 轻触时光';
+        
+        // 额外小彩蛋: 根据小时问候 (只是展示js可以做更多)
+        const hour = today.getHours();
+        let greeting = '';
+        if (hour < 6) greeting = '🌙 夜深了';
+        else if (hour < 12) greeting = '☀️ 上午好';
+        else if (hour < 18) greeting = '⛅ 下午好';
+        else greeting = '🌆 傍晚好';
+        
+        // 把问候加在日期后面，体现js灵活性 (但仍保持居中，美观)
+        dateElement.innerText += ' · ' + greeting;
+      }
+
+      // 顺便在控制台友好输出 —— 证明js正常工作 (不影响界面)
+      console.log('✅ 个人网站加载完毕 · 淡蓝背景 · 一切居中');
+    })();
+  </script>
+</body>
+</html>
